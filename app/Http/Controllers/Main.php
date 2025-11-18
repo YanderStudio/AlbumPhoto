@@ -73,7 +73,7 @@ class Main extends Controller
         return view('photos');
     }
 
-    public function tags() {
+    public function lesTags() {
         
 
 
