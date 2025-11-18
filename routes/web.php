@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main;
 
@@ -13,4 +14,11 @@ use App\Http\Controllers\Main;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [Main::class, 'welcome']);
+Route::get('/', [Main::class, 'index']); //accueil
+Route::get('/albums', [Main::class, 'lesAlbums']); //pages des diff albums
+Route::get('/album/{id}', [Main::class, 'detailAlbum'])->where("id", "[0-9]+"); //page montrant les diff photos d'un album
+Route::get('/photos', [Main::class, 'lesPhotos']); //bonus afficher toutes les photos
+Route::get('/tags', [Main::class, 'lesTags']);
+Route::get('/tag/{id}', [Main::class, 'detailTag'])->where("id", "[0-9]+"); //page montrant les diff photos d'un tag
+Route::get('/formulaire', [Main::class, 'ajoutPhoto']);
+Route::post('/traitementFormulaire', [Main::class, 'traitementFormulaire']);
