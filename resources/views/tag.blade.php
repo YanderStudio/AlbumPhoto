@@ -1,11 +1,15 @@
 @extends('template')
 
 @section('content')
-<ul>
-@foreach($tag as $tag)
-    <li>
-        <a href="{{ url('/photo' . $tag->id)}}">{{$tag -> nom}}</a>
-    </li>
-    @endforeach
-</ul>
+    @if ($tag && $tag->photos->count() > 0)
+        <ul>
+            @foreach ($tag->photos as $photo)
+                <li>
+                    <a href="{{ url('/photo/' . $photo->id) }}">{{ $photo->titre }}</a>
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p>No photo.</p>
+    @endif
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
@@ -86,21 +87,12 @@ class Main extends Controller
     }
 
     public function detailTag($id) {
-        $tag = DB::select("SELECT tags.id, tags.nom, photos.id AS photo_id, photos.titre
-                            FROM tags
-                            LEFT JOIN possede_tag ON tags.id = possede_tag.tag_id
-                            LEFT JOIN photos ON possede_tag.photo_id = photos.id
-                            WHERE tags.id = 1");
+    // On récupère le tag avec ses photos liées
+    $tag = Tag::with('photos')->find($id);
 
-
-
-
-
-
-
-
-        return view('tag', ['tag' => $tag]);
+    return view('tag', ['tag' => $tag]);
     }
+
 
     public function ajoutPhoto() {
         
@@ -117,5 +109,5 @@ class Main extends Controller
 
         return view('ajoutPhoto');
     }
-}
+}  
 ?>
