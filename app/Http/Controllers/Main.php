@@ -90,9 +90,9 @@ class Main extends Controller
     }
 
     public function tag($id) {
-        
-
-
+        $tag = DB::SELECT("SELECT id FROM tags
+                           LEFT JOIN tag_id ON 
+        ")
 
 
 
