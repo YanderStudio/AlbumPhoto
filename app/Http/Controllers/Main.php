@@ -27,7 +27,7 @@ class Main extends Controller
     }
 
     public function LesAlbums() {
-        
+        $lesAlbums = DB::SELECT("SELECT * FROM albums ORDER BY id");
 
 
 
@@ -37,13 +37,11 @@ class Main extends Controller
 
 
 
-
-
-        return view('albums');
+        return view('albums', ['lesAlbums' => $lesAlbums]);
     }
 
     public function detailAlbum($id) {
-        
+        $album = DB::select("SELECT * FROM photos WHERE album_id = ?", [$id]);
 
 
 
@@ -53,9 +51,7 @@ class Main extends Controller
 
 
 
-
-
-        return view('album');
+        return view('album', ['album' => $album]);
     }
 
     public function LesPhotos() {
