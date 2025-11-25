@@ -109,5 +109,22 @@ class Main extends Controller
 
         return view('ajoutPhoto');
     }
+    public function traitementFormulaire(Request $request) {
+        $request->validate([
+            'titre' => 'required|string|max:255',
+            'url' => 'required|url',
+            'note' => 'required|integer|min:1|max:5',
+            'album_id' => 'required|integer|exists:albums,id',
+        ]);
+
+        DB::table('photos')->insert([
+            'titre' => $request->input('titre'),
+            'url' => $request->input('url'),
+            'note' => $request->input('note'),
+            'album_id' => $request->input('album_id'),
+        ]);
+
+        return redirect('/photos')->with('success', 'Photo ajoutée avec succès !');
+    }
 }  
 ?>
