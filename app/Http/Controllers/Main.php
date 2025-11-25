@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
+use App\Models\Photo;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +29,7 @@ class Main extends Controller
     }
 
     public function LesAlbums() {
-        $lesAlbums = DB::SELECT("SELECT * FROM albums ORDER BY id");
-
+        $lesAlbums = Album::all();
 
 
 
@@ -41,8 +42,7 @@ class Main extends Controller
     }
 
     public function detailAlbum($id) {
-        $album = DB::select("SELECT * FROM photos WHERE album_id = ?", [$id]);
-
+        $album = Album::findOrFail($id);
 
 
 
@@ -55,8 +55,7 @@ class Main extends Controller
     }
 
     public function LesPhotos() {
-        $photos = DB::SELECT("SELECT * FROM photos ORDER BY id");
-        $albums = DB::SELECT("SELECT * FROM albums");
+        $photos = Photo::all();
 
 
 
@@ -64,9 +63,7 @@ class Main extends Controller
 
 
 
-
-
-        return view('photos', ['photos' => $photos, 'albums' => $albums]);
+        return view('photos', ['photos' => $photos]);
     }
 
     public function lesTags() {
