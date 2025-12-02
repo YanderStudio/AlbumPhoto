@@ -29,8 +29,8 @@
     <div class="galery">
         @foreach ($photos as $photo)
             <div class="item">
-                <h3>{{ $photo->titre}} | note : {{ $photo->note }}</h3>
-                <p>Album : {{ $photo->album_id}}</p>
+                <h3>{{ $photo->titre}} </h3>
+                <p>Album : {{ $photo->album_id}} <i class='bx bxs-star'></i> {{ $photo->note }}</p>
                 <a href="album/{{ $photo->album_id }}"><img src="{{ $photo->url }}" alt="{{ $photo->titre }}"></a>
             </div>
         @endforeach
