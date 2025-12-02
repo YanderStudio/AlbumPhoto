@@ -12,7 +12,8 @@ use function Laravel\Prompts\alert;
 class Main extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
 
 
 
@@ -28,9 +29,9 @@ class Main extends Controller
         return view('index');
     }
 
-    public function LesAlbums() {
+    public function LesAlbums()
+    {
         $lesAlbums = Album::all();
-
 
 
 
@@ -41,20 +42,38 @@ class Main extends Controller
         return view('albums', ['lesAlbums' => $lesAlbums]);
     }
 
-    public function detailAlbum($id) {
+    public function detailAlbum($id, Request $request)
+    {
         $album = Album::findOrFail($id);
+        $query = Photo::where('album_id', $id);
+
+        if ($request->filled('tag_id')) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->where('tags.id', $request->input('tag_id'));
+            });
+        }
+
+        if ($request->filled('note')) {
+            $query->where('note', $request->input('note'));
+        }
+
+        $photos = $query->get();
+
+        $tags = Tag::orderBy('nom')->get();
+        $notes = Photo::select('note')->distinct()->orderBy('note')->pluck('note');
 
 
 
-
-
-
-
-
-        return view('album', ['album' => $album]);
+        return view('album', [
+            'album' => $album,
+            'photos' => $photos,
+            'tags' => $tags,
+            'notes' => $notes,
+        ]);
     }
 
-    public function LesPhotos(Request $request) {
+    public function LesPhotos(Request $request)
+    {
         // Construire la requête photo avec filtres Eloquent
         $query = Photo::query();
 
@@ -81,7 +100,8 @@ class Main extends Controller
         ]);
     }
 
-    public function lesTags() {
+    public function lesTags()
+    {
         $tags = DB::SELECT("SELECT * FROM tags ORDER BY id");
 
 
@@ -97,8 +117,9 @@ class Main extends Controller
         return view('tags', ['tags' => $tags]);
     }
 
-    
-    public function detailTag($id) {
+
+    public function detailTag($id)
+    {
         $tag = Tag::with('photos')->find($id);
 
         return view('tag', ['tag' => $tag]);
@@ -106,8 +127,9 @@ class Main extends Controller
 
 
 
-    public function ajoutPhoto() {
-        
+    public function ajoutPhoto()
+    {
+
 
 
 
@@ -121,7 +143,8 @@ class Main extends Controller
 
         return view('ajoutPhoto');
     }
-    public function traitementFormulaire(Request $request) {
+    public function traitementFormulaire(Request $request)
+    {
         $request->validate([
             'titre' => 'required|string|max:255',
             'url' => 'required|url',
@@ -138,5 +161,5 @@ class Main extends Controller
 
         return redirect('/photos')->with('success', 'Photo ajoutée avec succès !');
     }
-}  
+}
 ?>
