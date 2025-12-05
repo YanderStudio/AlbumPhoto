@@ -29,7 +29,7 @@ class Main extends Controller
         return view('index');
     }
 
-    public function LesAlbums()
+    public function lesAlbums()
     {
         $lesAlbums = Album::all();
 
@@ -84,7 +84,7 @@ class Main extends Controller
         ]);
     }
 
-    public function LesPhotos(Request $request)
+    public function lesPhotos(Request $request)
     {
         // Début
         $query = Photo::query();
