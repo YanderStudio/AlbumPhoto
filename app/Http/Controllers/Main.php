@@ -204,5 +204,18 @@ class Main extends Controller
 
         return redirect('/albums')->with('success', 'Album créé avec succès !');
     }
+
+
+    public function deletePhoto($id)
+    {
+        $photo = Photo::findOrFail($id);
+
+        if (Auth::check() && $photo->user_id === Auth::id()) {
+            $photo->delete();
+            return redirect()->back()->with('success', 'Photo supprimée avec succès !');
+        }
+
+        return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à supprimer cette photo.');
+    }
 }
 ?>

@@ -25,7 +25,9 @@ Route::post('/traitementFormulaire', [Main::class, 'traitementFormulaire'])->mid
 Route::get('/compte', [Main::class, 'monCompte']); //page de gestion du compte utilisateur (spé web)
 
 Route::get('/creerAlbum', [Main::class, 'creerAlbum'])->middleware('auth');
-Route::post('/storeAlbum', [Main::class, 'storeAlbum'])->middleware('auth'); 
+Route::post('/storeAlbum', [Main::class, 'storeAlbum'])->middleware('auth');
+
+Route::post('/deletePhoto/{id}', [Main::class, 'deletePhoto'])->where("id", "[0-9]+")->middleware('auth');
 
 //Bonus :
 //créer des commentaires sur les photos

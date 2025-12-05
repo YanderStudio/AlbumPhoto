@@ -31,6 +31,13 @@
             <div class="photo">
                 <p>{{ $photo->titre }} | note : {{ $photo->note }}</p>
                 <img src="{{ $photo->url }}" alt="{{ $photo->titre }}">
+
+                @if(Auth::check() && $photo->user_id === Auth::id())
+                    <form method="POST" action="/deletePhoto/{{ $photo->id }}">
+                        @csrf
+                        <button type="submit">Supprimer la photo</button>
+                    </form>
+                @endif
             </div>
         @endforeach
     </div>
