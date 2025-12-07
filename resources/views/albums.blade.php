@@ -8,7 +8,7 @@
             @foreach ($lesAlbums as $album)
                 {{-- Le lien <a> englobe maintenant tout l'item --}}
                 <a href="/album/{{ $album->id }}" class="full-link">
-                    <div class="photo-slot item"> 
+                    <div class="photo-slot"> 
                         <h3>{{ $album->titre }}</h3>
                         <p>Propriété : {{ $album->user->name ?? 'Inconnu' }}</p>
                         
@@ -16,9 +16,9 @@
                             $firstPhoto = $album->photos->first();
                             $imageUrl = $firstPhoto ? $firstPhoto->url : asset('images/default_album.jpg');
                         @endphp
-                        <div>
-                            <img src="{{ $imageUrl }}" 
-                             alt="Couverture de l'album {{ $album->titre }}">
+                        
+                        <div class="album-cover">
+                            <img src="{{ $imageUrl }}" alt="Couverture de l'album {{ $album->titre }}">
                         </div>
                         
                     </div>
