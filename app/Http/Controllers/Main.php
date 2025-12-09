@@ -27,10 +27,24 @@ class Main extends Controller
         return view('index');
     }
 
-    public function lesAlbums()
+    public function lesAlbums(Request $request)
     {
-        $lesAlbums = Album::all();
+        $query = Album::query();
+        // tri par date
+        if ($request->filled('date')) {
+            $order = $request->input('date') === 'asc' ? 'asc' : 'desc';
+            $query->orderBy('creation', $order);
+        } else {
+            $query->orderBy('titre', 'asc');
+        }
 
+        //tri par recherche
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('titre', 'LIKE', "%{$search}%");
+        }
+
+        $lesAlbums = $query->get();
         
 
 
