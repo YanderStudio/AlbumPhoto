@@ -1,0 +1,517 @@
+
+/* --- Global styles --- */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --wht-color: aliceblue;
+    --blue-color: #191ccb;
+}
+html {
+    scroll-behavior: smooth;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e8f2ff;
+    font-family: "source sans 3", sans-serif;
+}
+h1, h2, h3{
+    font-family: "IBM Plex Sans", sans-serif;
+}
+h1{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.container{
+    width: 75%;
+    margin: 0 20px;
+}
+.content{
+    margin-top: 4rem;
+}
+
+
+
+
+/* --- Header style --- */
+.header{
+    background-color: var(--wht-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+    gap: 20px;
+    width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 600;
+    box-shadow: 0px 5px 5px #1a1a1a33;
+}
+.header nav{
+    margin-right: 30px;
+}
+.header a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+.header a:hover{
+    text-decoration: underline;
+    color: var(--blue-color);
+    text-decoration: none;
+}
+header{
+    margin-left: 30px;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+
+
+
+/* --- Album's style --- */
+.book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.photo-album-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 15px 5px 15px 5px;
+    background-color: #5b5b5b;
+    outline: 15px solid #1a1a1a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    gap: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+.photo-album-grid::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 5px;
+    background-color: #1a1a1a; 
+    box-shadow: 5px 0 4px rgba(0, 0, 0, 0.5), 
+                -5px 0 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    border-radius: 2px;
+}
+.photo-album-grid a.full-link {
+    display: flex; 
+    text-decoration: none; 
+    color: inherit;
+}
+.photo-slot {
+    background-color: #4b4b4b; 
+    padding: 15px; 
+    border-radius: 2px;
+    color: white; 
+    display: grid;
+    grid-template-rows: auto 1fr auto; 
+    grid-template-areas: 
+        "img"
+        "titre"
+        "album";
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+.photo-slot img { 
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 46/61;
+    object-fit: cover;
+    box-sizing: border-box;
+    border-radius: 2px;
+    filter: blur(2px);
+    transition: filter 0.3s ease-in-out;
+}
+.photo-slot img:hover {
+    filter: blur(0);
+    transition: filter 0.3s ease-in-out;
+}
+.photo-slot .album-cover {
+    overflow: hidden;
+    grid-area: img;
+}
+
+
+
+
+/* --- Photo's style --- */
+.filtres{
+    padding: 20px 0 0 20px;
+}
+.galery{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+.item{
+    background-color: var(--wht-color);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+        "img"
+        "titre"
+        "album";
+    justify-content: center;
+    padding: 15px;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    max-width: 265px;
+}
+.item > img{
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 46/61;
+    object-fit: cover;
+    grid-area: img;
+}
+.item h3{
+    grid-area: titre;
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-size: 3rem;
+}
+.item .info-photo{
+    grid-area: album;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;     
+}
+.overlay {
+    display: none;
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.overlay.active {
+    display: flex;
+}
+#overlayImage {
+    max-width: 90%;
+    max-height: 80vh;
+    display: block;
+    margin: 20px auto;
+}
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.close-btn:hover {
+    color: #bbb;
+}
+#overlayCaption {
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+
+
+/* Conteneur principal des filtres */
+.filtres {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 25px;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+.filtres form {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0px 10px;
+}
+.filtres input[type="search"],
+.filtres select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    width: 190px; 
+    box-sizing: border-box;
+}
+.filtres select {
+    width: 210px;
+}
+.filtres button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #517dab;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+.filtres button[type="submit"]:hover {
+    background-color: #2c5076;
+}
+.filtres a {
+    color: #495057;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.filtres a:hover {
+    text-decoration: underline;
+    color: #000;
+}
+.filtres select:focus,
+.filtres input[type="search"]:focus {
+    border-color: #2e4a6b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hero {
+    text-align: center;
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.hero h1 {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-md);
+}
+
+.hero p {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: var(--spacing-xl) 0;
+}
+
+.auth-info {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.auth-info .user-name {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--spacing-md);
+}
+
+.hr-sep {
+    margin: var(--spacing-2xl) auto;
+    max-width: 200px;
+    border-color: var(--color-border);
+}
+
+.section-steps {
+    max-width: 600px;
+    margin: var(--spacing-2xl) auto 0;
+    text-align: left;
+    background-color: var(--color-bg-alt);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.section-steps h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-primary);
+}
+
+.section-steps ol {
+    list-style: none;
+    counter-reset: step-counter;
+    padding-left: 0;
+}
+
+.section-steps ol li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: var(--spacing-2xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-light);
+}
+
+.section-steps ol li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+
+/* les tags ### on va enlever la page tags -> déjà filtres dans photos ### */
+
+.tags-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.tags-list li {
+    margin: 0;
+}
+
+.tag-item {
+    display: block;
+    background-color: var(--color-bg-alt);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    border: 2px solid var(--color-border-light);
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.tag-item:hover {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* détail tag -> là aussi */
+
+.tag-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.tag-header h2 {
+    color: var(--color-primary);
+}
+
+.tag-photos {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.tag-photos li {
+    margin: 0;
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.tag-photos li:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tag-photos img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.tag-photos p {
+    padding: var(--spacing-md);
+    margin: 0;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-light);
+}
+
+.empty-state p {
+    font-size: 1.125rem;
+}
+

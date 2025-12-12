@@ -31,11 +31,14 @@
                         
                         @php
                             $firstPhoto = $album->photos->first();
-                            $imageUrl = $firstPhoto ? $firstPhoto->url : asset('images/default_album.jpg');
                         @endphp
                         
                         <div class="album-cover">
-                            <img src="{{ $imageUrl }}" alt="Couverture de l'album {{ $album->titre }}">
+                            @if($firstPhoto)
+                                <img src="{{ $firstPhoto->url }}" alt="Couverture de l'album {{ $album->titre }}">
+                            @else
+                                <span class="album-empty">Album vide</span>
+                            @endif
                         </div>
                         
                     </div>
